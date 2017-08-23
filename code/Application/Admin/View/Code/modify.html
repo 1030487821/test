@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="__PUBLIC__/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/animate.css" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/style.css?v=4.1.0" rel="stylesheet">
+    <style type="text/css">
+        .need{color: red;}
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" action='' class="form-horizontal">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab-1" aria-expanded="true">基本选项</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">姓名<span class="need"> *</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='name' value="{$base.name}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">公司名称<span class="need"> *</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='com_name' value="{$user.com_name}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">职位</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='profess' value="{$base.profess}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">邮箱</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='email' value="{$base.email}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">手机<span class="need"> *</span></label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='mobile' value="{$base.mobile}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">电话热线</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='hotline' value="{$base.hotline}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">传真</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='fax' value="{$base.fax}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">主页</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='index' value="{$base.index}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">微信</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='weixin' value="{$base.weixin}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">QQ</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='qq' value="{$base.qq}">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">地址</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" id='editor_id' style='width:100%;height:300px' name='address'></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <table class='table table-bordered'>
+                                            <tr>
+                                                <td><strong>背景图</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type='hidden' name='bgurl' id='thumb2' class="form-control" value="{$base.url}"/>
+                                                    <img src="{$base.bgurl}" onerror="this.src='__PUBLIC__/admin/img/default.jpg'" width="150" height="150" id="thumbImg2">
+                                                    <button type="button" id="img-btn2" class="img-btn">点击上传</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>头像</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type='hidden' name='headpic' id='thumb' class="form-control" value="{$base.headpic}"/>
+                                                    <img src="{$base.headpic}" onerror="this.src='__PUBLIC__/admin/img/default.jpg'" width="150" height="150" id="thumbImg">
+                                                    <button type="button" id="img-btn" class="img-btn">点击上传</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>发布时间</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control layer-date" name='addtime' value="{:date('Y-m-d H:i:s',$base[addtime])}" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>状态</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="radio">
+                                                        <label><input type="radio" value="0" {$base[isdelete]==0?checked:''} name="isdelete">上岗</label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label><input type="radio" value="1" {$base[isdelete]==1?checked:''} name="isdelete">离职</label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class='col-sm-12'>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <div class="text-center">
+                                                <button class="btn btn-primary" type="submit">保存内容</button>
+                                                <button class="btn btn-white" type="reset">取消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="__PUBLIC__/admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/admin/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- layerdate日期插件 -->
+<script src="__PUBLIC__/admin/js/plugins/layer/laydate/laydate.js"></script>
+<!-- kindeditor引入 -->
+<script charset="utf-8" src="__PUBLIC__/asset/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/asset/kindeditor/lang/zh_CN.js"></script>
+<script>
+    KindEditor.ready(function(K) {
+        window.editor = K.create('#editor_id', {
+            allowFileManager: true
+        });
+        K('#img-btn').click(function() {
+            editor.loadPlugin('image', function() {
+                editor.plugin.imageDialog({
+                    imageUrl : K('#thumb').val(),
+                    clickFn : function(url, title, width, height, border, align) {
+                        K('#thumb').val(url);
+                        K('#thumbImg').attr('src',url);
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+        K('#img-btn2').click(function() {
+            editor.loadPlugin('image', function() {
+                editor.plugin.imageDialog({
+                    imageUrl : K('#thumb2').val(),
+                    clickFn : function(url, title, width, height, border, align) {
+                        K('#thumb2').val(url);
+                        K('#thumbImg2').attr('src',url);
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+    });
+</script>
+</body>
+
+</html>

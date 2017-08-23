@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="__PUBLIC__/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/font-awesome.css" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/animate.css" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/style.css" rel="stylesheet">
+    <style type='text/css'>
+        table,th{text-align: center;}
+        .pages a,.pages span{display:inline-block;transition:all 0.3s;padding:6px 10px;border:1px solid #ddd;color:#555;margin-left:5px;border-radius:3px;}
+        .pages .current,.pages a:hover{background:#189ec8;border-color:#189ec8;color:#fff;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        <a href="{:U('Home/index/index3',array('id'=>$id))}">{$name}</a>(ID:{$id})
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a class="btn btn-sm btn-primary" href='{:U("add",array("id"=>$id))}'>添加</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <form action="" method='get'>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>姓名</th>
+                                    <th>手机号码</th>
+                                    <th>添加时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="bases" id="b">
+                                    <tr>
+                                        <td>{$b.id}</td>
+                                        <td><a href="/{$b.id}">{$b.name}</a></td>
+                                        <td>{$b.mobile}</td>
+                                        <td>{:date('Y/m/d',$b[addtime])}</td>
+                                        <td>
+                                            <a href='{:U("modify",array("id"=>$b[id],"cid"=>$id))}'>修改</a>
+                                        </td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="pages text-right">
+                                            {$show}
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="__PUBLIC__/admin/js/jquery.min.js"></script>
+<script src="__PUBLIC__/admin/js/bootstrap.min.js"></script>
+
+<!-- layer弹框 -->
+<script src="__PUBLIC__/asset/layer/layer.js"></script>
+<script>
+    $(function () {
+        //全选
+        $('.selectAll').click(function () {
+            var isChecked = $(this).get(0).checked;
+            $('.selectOne').each(function () {
+                $(this).get(0).checked = isChecked;
+            });
+        });
+        //ajax删除（点击删除删除一个）
+        $('.btn-del').click(function (e) {
+            e.preventDefault();
+            var _this = $(this);
+            var _href = _this.attr('href');
+            layer.confirm('确定要删除吗?',{
+                btn:['确定','取消']
+            },function () {
+                $.getJSON(_href,{},function (data) {
+                    if(data.status){
+                        _this.parents('tr').remove();
+                        layer.msg(data.msg, {icon: 6});
+                    }else {
+                        layer.msg(data.msg, {icon: 5});
+                    }
+                });
+            });
+        });
+        //组装ids数组 要传过去 封装
+        function public() {
+            var ids = [];
+            var select = $('.selectOne:checked');
+            if(select.length==0){
+                layer.msg('请选择要操作的记录',{icon:5});
+                return ;
+            }
+            select.each(function (i) {
+                ids[i]=$(this).val();
+            });
+            return ids;
+        }
+        //ajax删除全部
+        $('.btn-delAll').click(function (e) {
+            e.preventDefault();
+            var ids = public();//获取选中的id放在数组中传过去
+            var url = $(this).attr('url');
+            if(ids.length != 0){
+                $.getJSON(url,{ids:ids},function (data) {
+                    if(data.status){
+                        $('.selectOne:checked').parents('tr').remove();
+                        layer.msg(data.msg,{icon:6});
+                    }else {
+                        layer.msg(data.msg,{icon:5});
+                    }
+                });
+            }
+        });
+        //change事件
+        $('[name^=sort]').change(function(e){
+            e.preventDefault();
+            var val=$(this).val();
+            var id=$(this).data('id');
+            $.post('{:U("mySort")}',{id:id,sort:val},function(data){
+                if(data.status){
+                    layer.msg(data.msg,{icon:6});
+                }else{
+                    layer.msg(data.msg,{icon:5});
+                }
+            },'json');
+        });
+    });
+
+</script>
+</body>
+
+</html>
