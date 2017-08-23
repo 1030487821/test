@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title> - 后台登录</title>
+    <meta name="keywords" content="{:C(WEB_KEYWORDS)}">
+    <meta name="description" content="{:C(WEB_DESCRIPTION)}">
+    <link href="__PUBLIC__/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/animate.css" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/style.css" rel="stylesheet">
+    <link href="__PUBLIC__/admin/css/login.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+
+</head>
+
+<body class="signin">
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" action="{:U('Index/index')}" id="frm">
+                <h4 class="no-margins">登录：</h4>
+                <input type="text" class="form-control uname" name="name" placeholder="用户名" />
+                <input type="password" class="form-control pword m-b" name="pwd" placeholder="密码" />
+                <input type="text" class="form-control m-b" name="yzmcode" placeholder="验证码" />
+                <img src="{:U('verify')}" style="width: 100%" id="yzmImg" onclick="changeSrc()">
+                <button class="btn btn-success btn-block" type="submit">登录</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script src="__PUBLIC__/admin/js/jquery.min.js"></script>
+<script src='__PUBLIC__/admin/js/plugins/layer/layer.min.js'></script>
+<script>
+    function changeSrc() {
+        $('#yzmImg').attr('src',"{:U('verify')}");
+    }
+    $('#frm').submit(function (e) {
+        e.preventDefault();
+        var username = $('[name=name]');
+        var password = $('[name=pwd]');
+        var yzmcode = $('[name=yzmcode]');
+
+        if(username.val() == ''){
+            layer.tips('用户名不能为空',username);
+            username.focus();
+            return ;
+        }
+        if(password.val() == ''){
+            layer.tips('密码不能为空',password);
+            password.focus();
+            return ;
+        }
+        if(yzmcode.val() == ''){
+            layer.tips('验证码不能为空',yzmcode);
+            yzmcode.focus();
+            return ;
+        }
+        $.post('{:U("Login")}',
+                {username:username.val(),password:password.val(),yzmcode:yzmcode.val()},
+                function (data) {
+                    if(data.status==0){
+                        layer.msg(data.msg,{icon:5});
+                        /*$('[name=username],[name=password],[name=yzmcode]').val('');*/
+                        changeSrc();
+                    }else {
+                        window.location = '{:U("Index/index")}';
+                    }
+
+                },'json'
+        );
+    });
+
+
+</script>
+</html>
+ 
